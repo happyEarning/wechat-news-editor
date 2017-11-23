@@ -15,9 +15,13 @@ exports.cssLoaders = function (options) {
   var cssLoader = {
     loader: 'css-loader',
     options: {
+      importLoaders:1,
       minimize: process.env.NODE_ENV === 'production',
       sourceMap: options.sourceMap
     }
+  }
+  var postCssLoader = {
+    loader: 'postcss-loader',
   }
 
   // generate loader string to be used with extract text plugin

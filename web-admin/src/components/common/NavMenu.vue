@@ -3,7 +3,7 @@
     <el-col :style="{minHeight:'100%'}" class="clearfix">
       <el-menu :default-active="activeIndex" class="el-menu-nav" theme="dark">
         <div class="nav-logo">
-          <img src="../../assets/logo.png" height="40">
+         LOGO
         </div>
         <el-menu-item index="1" @click="goView('/')">
           <i class="el-icon-menu"></i>首页

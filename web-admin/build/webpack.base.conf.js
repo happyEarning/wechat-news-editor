@@ -1,9 +1,11 @@
+var webpack = require('webpack')
 var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -25,6 +27,20 @@ module.exports = {
       '@': resolve('src')
     }
   },
+  plugins: [
+    // ...
+    new webpack.LoaderOptionsPlugin({
+      options: {
+          postcss: function(){
+              return [
+                  require("autoprefixer")({
+                      browsers: ['ie>=8','>1% in CN']
+                  })
+              ]
+          }
+      }
+  })
+  ],
   module: {
     rules: [
       // {
@@ -36,10 +52,25 @@ module.exports = {
       //     formatter: require('eslint-friendly-formatter')
       //   }
       // },
+      // {test: /\.less$/, loader: 'less-loader'},
+      {
+        
+        test: /\.less$/,
+        
+        loader: "style-loader!css-loader!less-loader",
+        
+        },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader',
+        query: {
+          minimize: true
+        }
       },
       {
         test: /\.js$/,
