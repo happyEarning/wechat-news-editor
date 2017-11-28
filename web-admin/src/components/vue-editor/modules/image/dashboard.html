@@ -1,12 +1,24 @@
 <div>
 
-    <div v-show="upload.status=='ready'">
-        <span v-for="item in imgList" :key="item">{{item}} </span>
-        <input type="text" v-model="imageUrl" maxlength="255" :placeholder="$parent.locale['please enter a url']">
-        <button type="button" @click="insertImageUrl">{{$parent.locale.save}}</button>
-        <input type="file" ref="file" style="display: none !important;" @change="process"
-               accept="image/png,image/jpeg,image/gif,image/jpg">
-        <button type="button" @click="pick">{{$parent.locale.upload}}</button>
+    <div v-show="upload.status=='ready'" class="img-upload-tool-box">
+        <div class="img-tabs">
+            <div class="img-tab" @click="tabItem='resource'">素材资源</div>
+            <div class="img-tab" @click="tabItem='uploadImg'">上传图片</div>
+        </div>
+        <div class="img-box" v-show="tabItem == 'resource'">
+            当前一共有图片素材：{{imgCount}}
+            <ul class="img-list">
+                <li class="img-item" v-for="item in imgList" :key="item" @click="selectImg(item)">
+                    <img :src="item.url" alt="">
+                </li>
+            </ul>
+            <button @click="prevImages">上一页</button>
+            <button @click="nextImages">下一页</button>
+        </div>
+        <div class="upload-box" v-show="tabItem == 'uploadImg'">
+            <input type="file" ref="file" style="display: none !important;" @change="process" accept="image/png,image/jpeg,image/gif,image/jpg">
+            <button type="button" @click="pick">{{$parent.locale.upload}}</button>
+        </div>
     </div>
 
     <div v-if="upload.status=='progress'">
@@ -28,4 +40,3 @@
     </div>
 
 </div>
-

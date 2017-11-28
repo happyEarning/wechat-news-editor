@@ -6,7 +6,7 @@ let baseURL = '';
 if(location.href.indexOf('tailor.apeec')>-1){
 	baseURL = 'http://tailor.apeec.vip/services';
 }else{
-	baseURL = 'http://tailor-dev.apeec.vip/services';
+	baseURL = 'http://localhost:30001/services';
 }
 
 axios.defaults.withCredentials = true;

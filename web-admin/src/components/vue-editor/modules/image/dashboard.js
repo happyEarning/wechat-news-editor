@@ -16,14 +16,19 @@ export default {
                 progressComputable: false,
                 complete: 0
             },
-            imgList:[1,2,3,4,5,6,7,8,9]
+            imgCount: 0,
+            imgPageNo: 1,
+            imgList: [],
+            tabItem:'resource'
         }
     },
-    created(){
+    created() {
         console.log('created img')
+        this.getImages()
+        this.getImageCount()
     },
     methods: {
-        reset(){
+        reset() {
             this.upload.status = 'ready'
         },
         insertImageUrl() {
@@ -36,7 +41,7 @@ export default {
         pick() {
             this.$refs.file.click()
         },
-        setUploadError(msg){
+        setUploadError(msg) {
             this.upload.status = 'error'
             this.upload.errorMsg = msg
         },
@@ -68,7 +73,7 @@ export default {
             // }
 
             if (!config.upload && typeof config.server === 'string') {
-                config.upload = {url: config.server}
+                config.upload = { url: config.server }
             }
             if (config.upload && !config.upload.url) {
                 config.upload = null
@@ -188,6 +193,34 @@ export default {
                 })
             }
             xhr.send(formData)
+        },
+        getImages() {
+            Site.http.get('rest/pictures', { limit: 8, skip: (this.imgPageNo - 1) * 8 }, data => {
+                console.log(data)
+                this.imgList = data;
+            })
+        },
+        getImageCount() {
+            Site.http.get('rest/pictures/count', {}, data => {
+                console.log(data)
+                this.imgCount = data.count
+            })
+        },
+        selectImg(item) {
+            console.log(item)
+            let imgUrl = item.url+'?'+encodeURIComponent(item.wxUrl)
+            this.$parent.execCommand(Command.INSERT_IMAGE, imgUrl)
+        },
+        prevImages() {
+            if(this.imgPageNo <= 1) return
+            this.imgPageNo = this.imgPageNo - 1 
+            this.getImages()
+        },
+        nextImages() {
+            let totalPage = Math.round(this.imgCount / 8) || 1
+            if(this.imgPageNo >= totalPage) return
+            this.imgPageNo = this.imgPageNo + 1
+            this.getImages()
         }
     }
 }

@@ -13,11 +13,10 @@
         </div>
         <div class="wx-editor">
           
-          <vue-html5-editor v-model="curTwForm.content" :height="300"></vue-html5-editor>
+          <vue-html5-editor v-model="curTwForm.content" :height="600"></vue-html5-editor>
         </div>
         <div class="upload-img">
           上传封面图片: use element-ui上传
-
         </div>
         <div class="buttons">
           <button @click="add">添加推文</button>

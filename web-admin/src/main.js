@@ -54,10 +54,10 @@ Vue.use(VueHtml5Editor,{
     // 上传参数,默认把图片转为base64而不上传
     // upload config,default null and convert image to base64
     upload: {
-      url: 'http://localhost:222',
-      headers: {},
-      params: {},
-      fieldName: {}
+      url: 'http://localhost:30001/services/biz/index/uploadImg',
+      // headers: {},
+      // params: {},
+      // fieldName: {}
     },
     // 压缩参数,默认使用localResizeIMG进行压缩,设置为null禁止压缩
     // compression config,default resize image by localResizeIMG (https://github.com/think2011/localResizeIMG)
