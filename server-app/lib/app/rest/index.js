@@ -42,6 +42,7 @@ const _mergeOptions = (...optionsArr) => {
 module.exports = {
     pictures : {model : require('../../models/Picture'),options: _mergeOptions(validateUpdatedAt())},
     customers : {model : require('../../models/Customer'),options: _mergeOptions(validateUpdatedAt())},
+    news : {model : require('../../models/News'),options: _mergeOptions(validateUpdatedAt())},
     fabrics : {model : require('../../models/Fabric'),options: _mergeOptions(validateUpdatedAt())},
     orders : {model : require('../../models/Order'),options: _mergeOptions(validateUpdatedAt())},
     summaries : {model : require('../../models/Summary'),options: _mergeOptions(validateUpdatedAt())},

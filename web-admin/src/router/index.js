@@ -25,7 +25,15 @@ const router = new Router({
       name: 'Index',
       component: Index,
       meta: {
-        keepAlive: true,
+        keepAlive: false,
+        permission: 10
+      }
+    },{
+      path: '/detail/:id',
+      name: 'Index3',
+      component: Index,
+      meta: {
+        keepAlive: false,
         permission: 10
       }
     }, {

@@ -3,14 +3,15 @@ import axios from 'axios'
 
 let baseURL = '';
 
-if(location.href.indexOf('tailor.apeec')>-1){
-	baseURL = 'http://tailor.apeec.vip/services';
+if(location.href.indexOf('badoutec')>-1){
+	baseURL = 'http://rt.badoutec.com/services';
 }else{
-	baseURL = 'http://localhost:30001/services';
+	baseURL = 'http://rt.badoutec.com/services';
 }
 
 axios.defaults.withCredentials = true;
 let Http = {
+	imgBaseUrl : 'http://rt.badoutec.com/media/',
 	baseURL: baseURL,
 	header: {
 		'Content-Type': 'application/json; charset=utf-8'
@@ -25,11 +26,15 @@ let Http = {
 	request(api, data, callback, error) {
 		if (api instanceof Array) {
 			var reqBody = {}, reqBodyKeys = Object.keys(data)
-			reqBodyKeys.forEach(function (item) {
-				if (data[item] !== '' && data[item] !== null) {
-					reqBody[item] = data[item];
-				}
-			})
+			if(!Array.isArray(data)){
+				reqBodyKeys.forEach(function (item) {
+					if (data[item] !== '' && data[item] !== null) {
+						reqBody[item] = data[item];
+					}
+				})
+			}else{
+				reqBody = data
+			}
 			let method = api[0];
 			let req = {
 				method: method,

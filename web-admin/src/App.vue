@@ -13,10 +13,8 @@ export default {
   created: function () {
     // 每次进入app check 用户是否登录
     // const _this = this;
-    
   },
   mounted: function () {
-
   }
 }
 </script>

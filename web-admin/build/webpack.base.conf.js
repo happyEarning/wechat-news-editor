@@ -3,7 +3,6 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
-const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -53,13 +52,6 @@ module.exports = {
       //   }
       // },
       // {test: /\.less$/, loader: 'less-loader'},
-      {
-        
-        test: /\.less$/,
-        
-        loader: "style-loader!css-loader!less-loader",
-        
-        },
       {
         test: /\.vue$/,
         loader: 'vue-loader',

@@ -49,12 +49,11 @@ Vue.use(VueHtml5Editor,{
   },
   // config image module
   image: {
-    // 文件最大体积，单位字节  max file size
     sizeLimit: 512 * 1024,
     // 上传参数,默认把图片转为base64而不上传
     // upload config,default null and convert image to base64
     upload: {
-      url: 'http://localhost:30001/services/biz/index/uploadImg',
+      url: 'http://rt.badoutec.com/services/biz/index/uploadImg',
       // headers: {},
       // params: {},
       // fieldName: {}
@@ -67,17 +66,6 @@ Vue.use(VueHtml5Editor,{
       height: 1600,
       quality: 80
     },
-    // 响应数据处理,最终返回图片链接
-    // handle response data，return image url
-    uploadHandler(responseText) {
-      //default accept json data like  {ok:false,msg:"unexpected"} or {ok:true,data:"image url"}
-      var json = JSON.parse(responseText);
-      if (!json.ok) {
-        alert(json.msg);
-      } else {
-        return json.data;
-      }
-    }
   },
   // 语言，内建的有英文（en-us）和中文（zh-cn）
   //default en-us, en-us and zh-cn are built-in

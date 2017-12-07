@@ -166,10 +166,14 @@ export default {
                 }
 
                 try {
-                    const url = config.uploadHandler(xhr.responseText)
-                    if (url) {
-                        this.$parent.execCommand(Command.INSERT_IMAGE, url)
-                    }
+                    let responseData = JSON.parse(xhr.responseText)
+
+                    let imgUrl =Site.http.imgBaseUrl + responseData.picture.url+'?'+encodeURIComponent(responseData.picture.wxUrl)
+                    // const url = config.uploadHandler(xhr.responseText)
+                    // console.log(responseData)
+                    // if (url) {
+                        this.$parent.execCommand(Command.INSERT_IMAGE, imgUrl)
+                    // }
                 } catch (err) {
                     this.setUploadError(err.toString())
                 } finally {
@@ -195,13 +199,16 @@ export default {
             xhr.send(formData)
         },
         getImages() {
-            Site.http.get('rest/pictures', { limit: 8, skip: (this.imgPageNo - 1) * 8 }, data => {
+            Site.http.get('rest/pictures', { query:JSON.stringify({type:'image'}),limit: 8, skip: (this.imgPageNo - 1) * 8 }, data => {
                 console.log(data)
-                this.imgList = data;
+                this.imgList = data.map(item=>{
+                    item.url = Site.http.imgBaseUrl+item.url
+                    return item
+                });
             })
         },
         getImageCount() {
-            Site.http.get('rest/pictures/count', {}, data => {
+            Site.http.get('rest/pictures/count', {query:JSON.stringify({type:'image'})}, data => {
                 console.log(data)
                 this.imgCount = data.count
             })

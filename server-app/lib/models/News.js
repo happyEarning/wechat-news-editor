@@ -2,7 +2,8 @@ var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 var schema = Schema({
-  articles: [{ type: Schema.Types.ObjectId, ref: 'News' }],
+  articles: Array,
+  mediaId:String
 }, {
     timestamps: true
   });

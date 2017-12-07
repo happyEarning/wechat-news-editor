@@ -96,12 +96,30 @@ ul{
 	  flex-flow: row wrap;
   }
 .dashboard .img-box .img-item{
-	width: 150px;
-	height: 150px;
+	width: 80px;
+	height: 80px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	cursor: pointer
+	cursor: pointer;
+	margin: 10px;
+}
+.dashboard .img-tabs{
+	text-align: center;
+}
+.dashboard .img-tab{
+	width: 90px;
+	border:1px solid #d0d0d0;
+	border-radius: 5px;
+	text-align: center;
+	height: 35px;
+	line-height: 35px;
+	display: inline-block;
+}
+.dashboard .img-tab.active{
+	background-color: #20a0ff;
+	border-color: #20a0ff;
+	color:#fff;
 }
 .dashboard .img-box .img-item img{
 	width: auto;
@@ -111,4 +129,7 @@ ul{
 }
 .dashboard  .img-upload-tool-box{
 	min-height: 300px;
+}
+.dashboard .img-box .btns{
+	text-align: center
 }
