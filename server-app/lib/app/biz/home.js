@@ -1,6 +1,8 @@
 
 const Picture = require('../../models/Picture');
 const News = require('../../models/News');
+const Message = require('../../models/Message');
+
 var multer = require('multer')
 var storage = multer.diskStorage({
   destination: './uploads',
@@ -115,7 +117,7 @@ module.exports.saveArticle = {
         let newsContent = item.content
         var srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/gi;
         let imgResults = newsContent.match(srcReg)
-        if(imgResults && imgResults instanceof Array ){
+        if (imgResults && imgResults instanceof Array) {
           imgResults.forEach(item => {
             let splitSrc = item.split('=')
             if (splitSrc[1]) {
@@ -128,7 +130,7 @@ module.exports.saveArticle = {
             }
           })
         }
-        
+
         let content = newsContent
         let newsItem = {
           thumb_media_id: item.thumb_media_id || '',
@@ -146,10 +148,10 @@ module.exports.saveArticle = {
         articles: teList,
       })
       // // save
-      req.$injection.articles =  {
+      req.$injection.articles = {
         "articles": news
       }
-      req.$injection.newsData =  newsData
+      req.$injection.newsData = newsData
       next();
     },
     (req, res, next) => {
@@ -185,9 +187,9 @@ module.exports.sendNews = {
       // 发送推文 
       // 查询素材信息
       const mediaId = req.body.media_id;
-      if(mediaId){
+      if (mediaId) {
         const receivers = 'o7vwNt4wyHsv5hwZE0VZWHRNRHYE';
-        const result = api.previewNews( receivers, mediaId,function (err,result) {
+        const result = api.previewNews(receivers, mediaId, function (err, result) {
           next()
         });
         // const result = api.massSendNews(mediaId, receivers, function (err,result) {
@@ -195,7 +197,7 @@ module.exports.sendNews = {
         //   console.log(result)
         //   next()
         // });
-      }else{
+      } else {
         next(new Error('模版id不存在'))
       }
 
@@ -211,17 +213,75 @@ module.exports.wechat = {
   method: 'all',
   middlewares: [
     (req, res, next) => {
-      console.log('aaaaa')
       // 发送推文 
       next();
     },
     wechat('tokenaccesskey', function (req, res, next) {
       // 微信输入信息都在req.weixin上
       var message = req.weixin;
-      res.reply('hehe');
+      var key = message.Content
+      if(key){
+        Message.findOne({
+          key: key
+        }).exec((err, message) => { 
+          if(message){
+            res.reply(message.value);
+          }else{
+            res.reply('默认回复内容');
+          }
+        })
+      }else{
+        res.reply('默认回复内容');
+      }
     })
   ]
 }
+
+module.exports.sendTemplate = {
+  method: 'all',
+  middlewares: [
+    (req, res, next) => {
+      // 发送模版
+
+      const openid = 'o7vwNt4wyHsv5hwZE0VZWHRNRHYE';
+      const templateId = 'syUe3yAplvv7CSZV9HOY-sMtae7d3JlC9d6Uf3pNBKs';
+      const url = 'https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433751277';
+      const data = {
+        t1:{
+          "value":"aaaaaaaa",
+          "color":"#173177"
+        },
+        t2:{
+          "value":"bbbb",
+          "color":"#00ff00"
+        }
+      };
+      // ('openid', templateId, url, data, callback)
+      const result = api.sendTemplate(openid, templateId, url, data, function (err, result) {
+        next()
+      });
+    },
+  ]
+}
+
+
+module.exports.testKey = {
+  method: 'post',
+  middlewares: [
+    (req, res, next) => {
+      let key  = req.body.key
+      // 发送推文 
+      // res.$locals.writeData(req.$injection.newsData);
+      Message.findOne({
+        key: key
+      }).exec((err, message) => { 
+        console.log(message)
+        next();
+      })
+    }
+  ]
+}
+
 
 // wechat 发送消息
 module.exports.wechat2 = {

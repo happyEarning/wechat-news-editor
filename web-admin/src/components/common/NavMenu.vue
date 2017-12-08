@@ -11,6 +11,9 @@
         <el-menu-item index="2" @click="goView('/index2')">
           <i class="el-icon-menu"></i>首页2
         </el-menu-item>
+        <el-menu-item index="2" @click="goView('/index4')">
+          <i class="el-icon-menu"></i>自动回复
+        </el-menu-item>
       </el-menu>
     </el-col>
   </el-row>

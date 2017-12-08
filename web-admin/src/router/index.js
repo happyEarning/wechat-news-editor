@@ -12,6 +12,7 @@ Vue.use(Router)
 // index
 const Index = resolve => require(['../views/index/index'], resolve)
 const Index2 = resolve => require(['../views/index/detail'], resolve)
+const List = resolve => require(['../views/index/list'], resolve)
 
 
 // keeplive 是否缓存当前页面  一般list设为true 详情页为false
@@ -40,6 +41,14 @@ const router = new Router({
       path: '/index2',
       name: 'Index2',
       component: Index2,
+      meta: {
+        keepAlive: true,
+        permission: 10
+      }
+    },{
+      path: '/index4',
+      name: 'List',
+      component: List,
       meta: {
         keepAlive: true,
         permission: 10

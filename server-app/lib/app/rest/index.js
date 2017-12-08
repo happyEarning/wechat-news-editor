@@ -40,6 +40,7 @@ const _mergeOptions = (...optionsArr) => {
 
 
 module.exports = {
+    messages: {model : require('../../models/Message'),options: _mergeOptions(validateUpdatedAt())},
     pictures : {model : require('../../models/Picture'),options: _mergeOptions(validateUpdatedAt())},
     customers : {model : require('../../models/Customer'),options: _mergeOptions(validateUpdatedAt())},
     news : {model : require('../../models/News'),options: _mergeOptions(validateUpdatedAt())},
