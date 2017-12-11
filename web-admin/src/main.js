@@ -31,22 +31,22 @@ Vue.use(VueHtml5Editor,{
   showModuleName: false,
   // 自定义各个图标的class，默认使用的是font-awesome提供的图标
   // custom icon class of built-in modules,default using font-awesome
-  icons: {
-    text: "fa fa-pencil",
-    color: "fa fa-paint-brush",
-    font: "fa fa-font",
-    align: "fa fa-align-justify",
-    list: "fa fa-list",
-    link: "fa fa-chain",
-    unlink: "fa fa-chain-broken",
-    tabulation: "fa fa-table",
-    image: "fa fa-file-image-o",
-    hr: "fa fa-minus",
-    eraser: "fa fa-eraser",
-    undo: "fa-undo fa",
-    "full-screen": "fa fa-arrows-alt",
-    info: "fa"
-  },
+  // icons: {
+  //   text: "fa fa-pencil",
+  //   color: "fa fa-paint-brush",
+  //   font: "fa fa-font",
+  //   align: "fa fa-align-justify",
+  //   list: "fa fa-list",
+  //   link: "fa fa-chain",
+  //   unlink: "fa fa-chain-broken",
+  //   tabulation: "fa fa-table",
+  //   image: "fa fa-file-image-o",
+  //   hr: "fa fa-minus",
+  //   eraser: "fa fa-eraser",
+  //   undo: "fa-undo fa",
+  //   "full-screen": "fa fa-arrows-alt",
+  //   info: "fa"
+  // },
   // config image module
   image: {
     sizeLimit: 512 * 1024,
